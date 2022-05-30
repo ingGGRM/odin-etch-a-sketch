@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
 html {
@@ -43,5 +44,9 @@ html {
     width: 25px;
     background-color: rgb(255, 255, 255);
     flex: auto;
+}
+
+.filled {
+    background-color: black;
 }
 

@@ -6,18 +6,23 @@ const grid_container = document.getElementById("grid-container");
 const grid_size_button = document.querySelector(".grid-size");
 const clear_grid_button = document.querySelector(".clear-grid");
 
+// show grid checkbox element
 const grid_show = document.getElementById("show-grid");
 grid_show.oninput = (e) => {
     const cells = document.querySelectorAll(".grid-elem");
-    if(!show_grid) {
+    if(!show_grid) { // if grid isn't shown
         cells.forEach(div => div.style.border='0px solid rgb(223, 219, 219)');
         show_grid = true;
-    } else {
-        cells.forEach(div => div.style.border='1px solid rgb(223, 219, 219)')
-        show_grid = false;
+    } else { // if grid is shown
+        cells.forEach(div => { // get each div element of the grid and draw 1px border with drawed color if it is filled
+            if(div.classList.contains('filled')) div.style.border='1px solid ' + window.getComputedStyle(div,null).getPropertyValue('background-color');
+            else div.style.border='1px solid rgb(223, 219, 219)';
+            show_grid = false;
+        });
     }
 }
 
+// color picker input and 
 const color_picker = document.getElementById("color-picker");
 color_picker.oninput = (e) => color = e.srcElement.value;
 
@@ -70,6 +75,7 @@ function setGrid(size) { // grid generator function
             const row_element = document.createElement('div');
             row_element.classList.add('grid-elem');
             grid_row.appendChild(row_element);
+            row_element.addEventListener('click', hover); // listen to mouse event to draw
             row_element.addEventListener('mousedown', hover); // listen to mouse event to draw
             row_element.addEventListener('mouseover', hover); // listen to mouse event to draw
             row_element.style.border= (show_grid) ? '0px solid rgb(223, 219, 219)' : '1px solid rgb(223, 219, 219)';
@@ -81,7 +87,9 @@ function clearGrid() {setGrid(current_grid_size);} // grid clearer function
 
 /* DRAWER FUNCTION */
 function hover(e) {
-    if(!mouseClicked) return; // if mouse isn´t clicked, return
+    if(!mouseClicked && e.type != 'click') return; // if mouse isn´t clicked, return
+    this.classList.add('filled');
     this.style.background = color;
+    this.style.borderColor= color;
     //this.classList.add('filled');
 }

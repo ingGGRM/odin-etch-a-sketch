@@ -40,7 +40,6 @@ html {
 }
 
 .grid-elem {
-    border: 1px solid rgb(223, 219, 219);
     width: 25px;
     background-color: rgb(255, 255, 255);
     flex: auto;

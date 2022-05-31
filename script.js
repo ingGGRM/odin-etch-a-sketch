@@ -6,16 +6,30 @@ const grid_container = document.getElementById("grid-container");
 const grid_size_button = document.querySelector(".grid-size");
 const clear_grid_button = document.querySelector(".clear-grid");
 
+const grid_show = document.getElementById("show-grid");
+grid_show.oninput = (e) => {
+    const cells = document.querySelectorAll(".grid-elem");
+    if(!show_grid) {
+        cells.forEach(div => div.style.border='0px solid rgb(223, 219, 219)');
+        show_grid = true;
+    } else {
+        cells.forEach(div => div.style.border='1px solid rgb(223, 219, 219)')
+        show_grid = false;
+    }
+}
+
 const color_picker = document.getElementById("color-picker");
 color_picker.oninput = (e) => color = e.srcElement.value;
 
 // variables declaration
 const DEFAULT_GRID_SIZE = 16;
+const DEFAULT_GRID_SHOW = true;
 const DEFAULT_COLOR = '#000000';
 
 let grid_size = DEFAULT_GRID_SIZE;
 let current_grid_size;
 let color = DEFAULT_COLOR;
+let show_grid = DEFAULT_GRID_SHOW;
 let first_start;
 let mouseClicked = false;
 
@@ -58,6 +72,7 @@ function setGrid(size) { // grid generator function
             grid_row.appendChild(row_element);
             row_element.addEventListener('mousedown', hover); // listen to mouse event to draw
             row_element.addEventListener('mouseover', hover); // listen to mouse event to draw
+            row_element.style.border= (show_grid) ? '0px solid rgb(223, 219, 219)' : '1px solid rgb(223, 219, 219)';
         }
     }
 }

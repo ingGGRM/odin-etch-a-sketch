@@ -3,8 +3,8 @@
 // const declarations for elements getters
 const container = document.getElementById("container");
 const grid_container = document.getElementById("grid-container");
-const grid_size_button = document.querySelector(".grid-size");
-const clear_grid_button = document.querySelector(".clear-grid");
+const grid_size_button = document.querySelector("#grid-size");
+const clear_grid_button = document.querySelector("#clear-grid");
 
 // show grid checkbox element
 const grid_show = document.getElementById("show-grid");
@@ -31,12 +31,13 @@ const DEFAULT_GRID_SIZE = 16;
 const DEFAULT_GRID_SHOW = true;
 const DEFAULT_COLOR = '#000000';
 
-let grid_size = DEFAULT_GRID_SIZE;
+let grid_size = grid_size_button.value;
 let current_grid_size;
 let color = DEFAULT_COLOR;
 let show_grid = DEFAULT_GRID_SHOW;
-let first_start;
 let mouseClicked = false;
+let rainbow_mode;
+let rainbow_color;
 
 
 /* MOUSE GLOBAL LISTENER */
@@ -53,13 +54,7 @@ function init() { // function call on full page load
     current_grid_size = grid_size;
     setGrid(grid_size);
 
-    /* CONTROL PANEL LISTENER */
-    grid_size_button.addEventListener('click', () => {
-        let grid_size = prompt("Enter a new size for the grid: ");
-        current_grid_size = grid_size;
-        console.log("User selecter the size of: " + grid_size);
-        setGrid(grid_size);
-    });
+    grid_size_button.addEventListener("input", (e) => (setGrid(grid_size_button.value)))
     clear_grid_button.addEventListener('click', clearGrid);
 }
 
@@ -88,8 +83,18 @@ function clearGrid() {setGrid(current_grid_size);} // grid clearer function
 /* DRAWER FUNCTION */
 function hover(e) {
     if(!mouseClicked && e.type != 'click') return; // if mouse isn´t clicked, return
+
+    if(rainbow_mode) {
+        rainbow_color = getRainbow();
+    }
+    console.log(e);
     this.classList.add('filled');
-    this.style.background = color;
-    this.style.borderColor= color;
-    //this.classList.add('filled');
+    this.style.background  = (rainbow_mode) ? color : rainbow_color;
+    this.style.borderColor = (rainbow_mode) ? color : rainbow_color;
+}
+
+function getRainbow() {
+    let color = '#000000';
+
+    return color;
 }

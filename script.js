@@ -6,6 +6,19 @@ const grid_container = document.getElementById("grid-container");
 const grid_size_button = document.querySelector("#grid-size");
 const clear_grid_button = document.querySelector("#clear-grid");
 
+// variables declaration
+const DEFAULT_GRID_SIZE = 16;
+const DEFAULT_GRID_SHOW = true;
+const DEFAULT_COLOR = '#000000';
+
+let grid_size = grid_size_button.value;
+let current_grid_size;
+let color = DEFAULT_COLOR;
+let show_grid = DEFAULT_GRID_SHOW;
+let mouseClicked = false;
+let rainbow_mode;
+let rainbow_color;
+
 // show grid checkbox element
 const grid_show = document.getElementById("show-grid");
 grid_show.oninput = (e) => {
@@ -22,23 +35,17 @@ grid_show.oninput = (e) => {
     }
 }
 
+// enable/disable rainbow mode usin checkbox
+const rainbow_set = document.getElementById("rainbow");
+rainbow_set.oninput = (e) => {
+    if(rainbow_mode) rainbow_mode = false;
+    else rainbow_mode = true;
+}
+
+
 // color picker input and 
 const color_picker = document.getElementById("color-picker");
 color_picker.oninput = (e) => color = e.srcElement.value;
-
-// variables declaration
-const DEFAULT_GRID_SIZE = 16;
-const DEFAULT_GRID_SHOW = true;
-const DEFAULT_COLOR = '#000000';
-
-let grid_size = grid_size_button.value;
-let current_grid_size;
-let color = DEFAULT_COLOR;
-let show_grid = DEFAULT_GRID_SHOW;
-let mouseClicked = false;
-let rainbow_mode;
-let rainbow_color;
-
 
 /* MOUSE GLOBAL LISTENER */
 document.addEventListener('mousedown', mouseListener);
@@ -84,17 +91,19 @@ function clearGrid() {setGrid(current_grid_size);} // grid clearer function
 function hover(e) {
     if(!mouseClicked && e.type != 'click') return; // if mouse isn´t clicked, return
 
+    this.classList.add('filled');
+
     if(rainbow_mode) {
         rainbow_color = getRainbow();
+        this.style.background  = rainbow_color;
+        this.style.borderColor = rainbow_color;
+    } else {
+        this.style.background  = color;
+        this.style.borderColor = color;
     }
-    console.log(e);
-    this.classList.add('filled');
-    this.style.background  = (rainbow_mode) ? color : rainbow_color;
-    this.style.borderColor = (rainbow_mode) ? color : rainbow_color;
 }
 
+/* RANDOM COLOR GENERATOR FUNCTION */
 function getRainbow() {
-    let color = '#000000';
-
-    return color;
+    return  '#' + Math.floor(Math.random()*16777215).toString(16); // added # symbol to color generated
 }

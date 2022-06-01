@@ -3,8 +3,13 @@
 // const declarations for elements getters
 const container = document.getElementById("container");
 const grid_container = document.getElementById("grid-container");
+
+const rainbow_set = document.getElementById("rainbow");
+const grid_show = document.getElementById("show-grid");
+
 const clear_grid_button = document.querySelector("#clear-grid");
 const size_slider = document.getElementById("grid-size");
+const size_label = document.querySelectorAll("#size > h4 > span");
 
 // variables declaration
 const DEFAULT_GRID_SIZE = 16;
@@ -19,11 +24,10 @@ let rainbow_mode;
 let rainbow_color;
 
 size_slider.addEventListener("input", () => {
-    document.querySelector("#size > span").innerHTML = size_slider.value + 'x' + size_slider.value
+    size_label.forEach(span => span.innerHTML = size_slider.value);
 });
 
 // show grid checkbox element
-const grid_show = document.getElementById("show-grid");
 grid_show.oninput = (e) => {
     const cells = document.querySelectorAll(".grid-elem");
     if(!show_grid) { // if grid isn't shown
@@ -39,10 +43,14 @@ grid_show.oninput = (e) => {
 }
 
 // enable/disable rainbow mode usin checkbox
-const rainbow_set = document.getElementById("rainbow");
 rainbow_set.oninput = (e) => {
-    if(rainbow_mode) rainbow_mode = false;
-    else rainbow_mode = true;
+    if(rainbow_mode) {
+        rainbow_mode = false;
+        color_picker.disabled = false;
+        return
+    }
+    rainbow_mode = true;
+    color_picker.disabled = true;
 }
 
 
@@ -91,6 +99,8 @@ function clearGrid() {setGrid(size_slider.value);} // grid clearer function
 
 /* DRAWER FUNCTION */
 function hover(e) {
+    this.style.cursor = 'crosshair';
+
     if(!mouseClicked && e.type != 'click') return; // if mouse isn´t clicked, return
 
     this.classList.add('filled');

@@ -46,6 +46,7 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: 8pt;
 }
 
 #control-panel > *:first-child {

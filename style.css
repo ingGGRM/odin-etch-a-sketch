@@ -37,12 +37,34 @@ html {
     width: 100%;
     flex: 0 0 auto;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.control-set {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-#control-panel > *:first-child {margin-left: 0; margin-right: auto;}
-#control-panel > :last-child {margin-left: auto; margin-right: 0;}
+#control-panel > *:first-child {
+    display: flex;
+    gap: 10px;
+}
+
+#control-panel > :last-child {
+    display: flex;
+    gap: 10px;
+}
+
+#size {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #grid-size {
     transition: opacity .2s;
 }

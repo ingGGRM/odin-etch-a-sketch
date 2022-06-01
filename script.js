@@ -3,21 +3,24 @@
 // const declarations for elements getters
 const container = document.getElementById("container");
 const grid_container = document.getElementById("grid-container");
-const grid_size_button = document.querySelector("#grid-size");
 const clear_grid_button = document.querySelector("#clear-grid");
+const size_slider = document.getElementById("grid-size");
 
 // variables declaration
 const DEFAULT_GRID_SIZE = 16;
 const DEFAULT_GRID_SHOW = true;
 const DEFAULT_COLOR = '#000000';
 
-let grid_size = DEFAULT_GRID_SIZE;
-let current_grid_size;
+let grid_size;
 let color = DEFAULT_COLOR;
-let show_grid = DEFAULT_GRID_SHOW;
+let show_grid;
 let mouseClicked = false;
 let rainbow_mode;
 let rainbow_color;
+
+size_slider.addEventListener("input", () => {
+    document.querySelector("#size > span").innerHTML = size_slider.value + 'x' + size_slider.value
+});
 
 // show grid checkbox element
 const grid_show = document.getElementById("show-grid");
@@ -58,8 +61,7 @@ function mouseListener(e) {
 
 /* INIT FUNCTION */
 function init() { // function call on full page load
-    current_grid_size = grid_size;
-    setGrid(grid_size);
+    setGrid(DEFAULT_GRID_SIZE);
 
     //grid_size_button.addEventListener("input", (e) => (setGrid(grid_size_button.value)))
     clear_grid_button.addEventListener('click', clearGrid);
@@ -85,7 +87,7 @@ function setGrid(size) { // grid generator function
     }
 }
 
-function clearGrid() {setGrid(current_grid_size);} // grid clearer function
+function clearGrid() {setGrid(size_slider.value);} // grid clearer function
 
 /* DRAWER FUNCTION */
 function hover(e) {
@@ -109,5 +111,5 @@ function getRainbow() {
 }
 
 function changeSize() {
-    setGrid(grid_size_button.value);
+    setGrid(size_slider.value);
 }

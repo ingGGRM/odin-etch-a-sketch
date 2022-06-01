@@ -43,6 +43,9 @@ html {
 
 #control-panel > *:first-child {margin-left: 0; margin-right: auto;}
 #control-panel > :last-child {margin-left: auto; margin-right: 0;}
+#grid-size {
+    transition: opacity .2s;
+}
 
 #grid-container {
     height: 400px;

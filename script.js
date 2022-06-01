@@ -11,7 +11,7 @@ const DEFAULT_GRID_SIZE = 16;
 const DEFAULT_GRID_SHOW = true;
 const DEFAULT_COLOR = '#000000';
 
-let grid_size = grid_size_button.value;
+let grid_size = DEFAULT_GRID_SIZE;
 let current_grid_size;
 let color = DEFAULT_COLOR;
 let show_grid = DEFAULT_GRID_SHOW;
@@ -61,7 +61,7 @@ function init() { // function call on full page load
     current_grid_size = grid_size;
     setGrid(grid_size);
 
-    grid_size_button.addEventListener("input", (e) => (setGrid(grid_size_button.value)))
+    //grid_size_button.addEventListener("input", (e) => (setGrid(grid_size_button.value)))
     clear_grid_button.addEventListener('click', clearGrid);
 }
 
@@ -106,4 +106,8 @@ function hover(e) {
 /* RANDOM COLOR GENERATOR FUNCTION */
 function getRainbow() {
     return  '#' + Math.floor(Math.random()*16777215).toString(16); // added # symbol to color generated
+}
+
+function changeSize() {
+    setGrid(grid_size_button.value);
 }

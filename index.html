@@ -20,12 +20,15 @@
                     <label for="Grid">Grid</label>
                 </div>
                 <div>
-                    <input id="grid-size" type="range" value="16" min="16" max="64" step="1" list="tickmarks">
-                        <datalist id="tickmarks">
+                    <input onchange="changeSize()" id="grid-size" name="size" type="range" value="16" min="16" max="64" step="1">
+                    <output for="size" onforminput="value = size.valueAsNumber;" ></output>
+                    <!--    
+                    <datalist id="tickmarks">
                             <option value="16" label="16"></option>
                             <option value="32" label="32"></option>
                             <option value="48" label="48"></option>
                             <option value="64" label="64"></option>
+                    -->
                     <button id="clear-grid">CLEAR</button>
                 </div>
             </div>

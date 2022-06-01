@@ -4,6 +4,7 @@
 const container = document.getElementById("container");
 const grid_container = document.getElementById("grid-container");
 
+const eraser = document.getElementById("eraser");
 const rainbow_set = document.getElementById("rainbow");
 const grid_show = document.getElementById("show-grid");
 
@@ -19,6 +20,7 @@ const DEFAULT_COLOR = '#000000';
 let grid_size;
 let color = DEFAULT_COLOR;
 let show_grid;
+let eraser_mode;
 let mouseClicked = false;
 let rainbow_mode;
 let rainbow_color;
@@ -46,10 +48,21 @@ grid_show.oninput = (e) => {
 rainbow_set.oninput = (e) => {
     if(rainbow_mode) {
         rainbow_mode = false;
-        color_picker.disabled = false;
+        if(!eraser_mode) color_picker.disabled = false;
         return
     }
     rainbow_mode = true;
+    color_picker.disabled = true;
+}
+
+// enable/disable eraser mode
+eraser.oninput = (e) => {
+    if(eraser_mode) {
+        eraser_mode = false;
+        if(!rainbow_mode) color_picker.disabled = false;
+        return
+    }
+    eraser_mode = true;
     color_picker.disabled = true;
 }
 
@@ -99,9 +112,14 @@ function clearGrid() {setGrid(size_slider.value);} // grid clearer function
 
 /* DRAWER FUNCTION */
 function hover(e) {
-    this.style.cursor = 'crosshair';
-
     if(!mouseClicked && e.type != 'click') return; // if mouse isn´t clicked, return
+
+    if(eraser_mode) {
+        this.classList.remove('filled');
+        this.style.background = '#ffffff';
+        this.style.border= (show_grid) ? '0px solid rgb(223, 219, 219)' : '1px solid rgb(223, 219, 219)';;
+        return;
+    }
 
     this.classList.add('filled');
 
